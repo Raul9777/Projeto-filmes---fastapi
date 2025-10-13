@@ -2,6 +2,9 @@ import psycopg2
 from dotenv import load_dotenv
 import os
 
+#Instalar o requirements.txt
+#pip install -r requerements.txt(nome do arquivo)
+
 #Carregar variaveis do .env
 load_dotenv()
 
@@ -18,6 +21,7 @@ def conectar():
         conexao = psycopg2.connect(**params)
         cursor = conexao.cursor()
         print("Deu certo!")
+        return conexao, cursor
     except Exception as erro:
         print(f"Erro de conexão {erro}")
         return None, None
