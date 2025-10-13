@@ -20,3 +20,16 @@ def home():
     return {
         "Mensagem": "Bem-vindo ao gerenciador de filmes"
         }
+
+@app.get("/filmes")
+def catalogo():
+    filmes = funcao.listar_movies()
+    lista = []
+    for filme in filmes:
+        lista.append({ "id":filme[0],
+                      "titulo":filme[1],
+                      "genero":filme[2],
+                      "ano":filme[3],
+                      "avaliacao":filme[4]
+                    })
+    return{"filmes": lista}
