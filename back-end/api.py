@@ -39,3 +39,4 @@ def catalogo():
 def adicionar_filme(titulo: str, genero: str, ano: int, avaliacao:float):
     funcao.criar_filme(titulo, genero, ano, avaliacao)
     return {"mensagem": "Filme adicionado com sucesso"}
+
