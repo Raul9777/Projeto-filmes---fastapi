@@ -39,26 +39,19 @@ elif menu == "Adicionar Filme":
                st.error("Erro ao adicionar o filme")
 elif menu == "Atualizar Filme":
     st.subheader("Atualizar Filme")
-
-    titulo_original = st.text_input("Título Original do Filme (que será atualizado)")
-
-    novo_titulo = st.text_input("Novo Título do Filme")
-    genero = st.text_input("Novo Gênero do Filme")
-    ano = st.number_input("Novo Ano de Lançamento", min_value=1900, max_value=2100, step=1)
-    avaliacao = st.number_input("Nova Avaliação de (0 a 10)", min_value=0, max_value=10, step=1)
-
-    if st.button("Atualizar Filme"):
-        params = {
-            "titulo": novo_titulo,
-            "genero": genero,
-            "ano": ano,
-            "avaliacao": avaliacao
-        }
-
-        response = requests.put(f"{API_URL}/filmes/{titulo_original}", params=params)
-        if response.status_code == 200:
-            st.success("Filme atualizado com sucesso")
-        else:
-             st.error("Erro ao atuliazar o filme")
+    id_filme = st.number_input("ID do Filme a atualizar", min_value=1,step=1)
+    nova_avalicao = st.number_input("Nova avaliação", min_value=1, max_value=10)
+    if st.button("Atualizar"):
+         dados= {"avaliacao": nova_avalicao}
+         response = requests.put(f"{API_URL}/filmes/{id_filme}", params=dados)
+         if response.status_code == 200:
+              data = response.json()
+              if "erro" in data:
+                   st.warning(data["erro"])
+              else:
+                   st.success("Filme atualizado com sucesso!")
+         else:
+            st.error("Erro ao atualizar filme")
+                   
             
 

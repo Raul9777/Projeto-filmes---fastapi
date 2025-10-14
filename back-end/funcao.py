@@ -88,6 +88,24 @@ def deletar_movie(id_filme):
 
 
 
+def buscar_movies(id_filme):
+    conexao, cursor = conectar()
+    if conexao:
+        try:
+            cursor.execute(
+                "SELECT * FROM movies WHERE id = %s", (id_filme)
+            )
+            return cursor.fetchone()
+        except Exception as erro:
+            print(f"Erro ao listar {erro}")
+            return []
+        finally:
+            cursor.close()
+            conexao.close()
+
+
+
+
 
 
 

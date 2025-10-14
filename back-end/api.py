@@ -40,3 +40,12 @@ def adicionar_filme(titulo: str, genero: str, ano: int, avaliacao:float):
     funcao.criar_filme(titulo, genero, ano, avaliacao)
     return {"mensagem": "Filme adicionado com sucesso"}
 
+@app.put("/filmes/{id_filme}")
+def atualizar_filme(id_filme:int, nova_avaliacao:float):
+    funcao.atualizar_movies(id_filme, nova_avaliacao)
+    filme = funcao.buscar_movies()
+    if filme:
+        funcao.atualizar_movies(id_filme, nova_avaliacao)
+        return{"mensagem": "Filme atualizado com sucesso"}
+    return {"erro": "Filme não encontrado"}
+    
