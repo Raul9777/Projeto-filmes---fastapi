@@ -18,7 +18,7 @@ if menu == "Catalogo":
         filmes = response.json().get("filmes", [])
         if filmes:
             for filme in filmes:
-                st.write(f" **{filme['titulo']}** ({filme['ano']}) - {filme['genero']}")
+                st.write(f" **{filme['titulo']}** ({filme['ano']}) - {filme['genero']} - {filme['avaliacao']}")
         else:
                 st.info("Nenhum filme cadastrado")
     else:
@@ -42,7 +42,7 @@ elif menu == "Atualizar Filme":
     id_filme = st.number_input("ID do Filme a atualizar", min_value=1,step=1)
     nova_avalicao = st.number_input("Nova avaliação", min_value=1, max_value=10)
     if st.button("Atualizar"):
-         dados= {"avaliacao": nova_avalicao}
+         dados= {"nova_avaliacao": nova_avalicao}
          response = requests.put(f"{API_URL}/filmes/{id_filme}", params=dados)
          if response.status_code == 200:
               data = response.json()
@@ -52,6 +52,24 @@ elif menu == "Atualizar Filme":
                    st.success("Filme atualizado com sucesso!")
          else:
             st.error("Erro ao atualizar filme")
+
+
+elif menu == "Deletar Filme":
+    st.subheader("Deletar Filme")
+    id_filme = st.number_input("ID do Filme a deletar", min_value=1, step=1)
+
+    if st.button("Deletar Filme"):
+        response = requests.delete(f"{API_URL}/filmes/{id_filme}")
+        if response.status_code == 200:
+            data = response.json()
+            if "erro" in data:
+                st.warning(data["erro"])
+            else:
+                st.success(data["mensagem"])
+        else:
+            st.error("Erro ao deletar o filme")
+
+
                    
             
 

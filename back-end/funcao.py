@@ -93,7 +93,7 @@ def buscar_movies(id_filme):
     if conexao:
         try:
             cursor.execute(
-                "SELECT * FROM movies WHERE id = %s", (id_filme)
+                "SELECT * FROM movies WHERE id = %s", (id_filme,)
             )
             return cursor.fetchone()
         except Exception as erro:
